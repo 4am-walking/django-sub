@@ -19,7 +19,9 @@ RUN apt-get update && \
     build-essential \
     git \
     vim \
-    curl
+    curl \
+    libpq-dev \
+    gcc
 
 WORKDIR /app
 COPY requirements.txt .
@@ -39,7 +41,7 @@ FROM python-base as production
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     apt-get install -y --no-install-recommends \
-    ca-certificates gunicorn && \
+    ca-certificates gunicorn  libpq-dev gcc && \
     apt-get clean
 
 COPY --from=builder-base $VIRTUAL_ENV $VIRTUAL_ENV

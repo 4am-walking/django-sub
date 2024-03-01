@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from django.contrib.auth.models import User
+from .serializers import AuthSerializer
 
 
-# Create your views here.
-def index(request):
-    return render(request, "index.html")
+class AuthView(viewsets.ModelViewSet):
+    serializer_class = AuthSerializer
+    queryset = User.objects.all()
